@@ -69,16 +69,11 @@ function updateResult(state, availableProducts) {
         const undertone = state.selected.undertone;
         const shortenedResult = `${intensity.substring(0,2)}${mastertone.substring(0,1)}${undertone.substring(0,1)}`;
 
-        console.log("translation", translation)
-
         const mastertoneTranslated = translate(mastertone, translation);
         const undertoneTranslated = translate(undertone, translation);
 
-        console.log("mastertone", mastertoneTranslated)
+        const product = get(availableProducts, [intensity, mastertone, undertone]);
 
-        const item = get(availableProducts, [intensity, mastertone, undertone]);
-        console.log("item is: ", item);
-        console.log("shortened result", shortenedResult)
         state.result = shortenedResult;
 
         // render result
@@ -88,8 +83,8 @@ function updateResult(state, availableProducts) {
         document.querySelector(".result-value").innerHTML = shortenedResult;
         document.querySelector(".result-code").innerHTML = shortenedResult;
 
-        document.querySelector(".section-result .before-image").src = item.image_before;
-        document.querySelector(".section-result .after-image").src = item.image_after;
+        document.querySelector(".section-result .before-image").src = product.image_before;
+        document.querySelector(".section-result .after-image").src = product.image_after;
 
         document.querySelector(".translate-intensity").innerHTML = `
             <strong>${intensity.substring(2)}</strong><br/>
