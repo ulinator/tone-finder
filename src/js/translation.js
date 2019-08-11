@@ -1,4 +1,4 @@
-const translation = {
+export const translation = {
     "cool": ["chłodna", "chłodny", "chłodnym"],
     "neutral": ["neutralna", "neutralny", "neutralnym"],
     "warm": ["ciepła", "ciepły", "ciepłym"],

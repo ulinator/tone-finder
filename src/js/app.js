@@ -1,3 +1,6 @@
+import { products } from './products.js';
+import { translation } from './translation.js';
+
 function get(data, keys) {
     const key = keys.shift();
     const target = data.find(el => el.name === key);
