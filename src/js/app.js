@@ -1,7 +1,7 @@
 import products from './products.js';
 import translation from './translation.js';
 // eslint-disable-next-line object-curly-newline
-import { get, translate, addClass, removeClass } from './utils.js';
+import { get, translate, addClass, removeClass, render } from './utils.js';
 
 const state = {
   selected: {
@@ -38,7 +38,8 @@ function activateAvailableUndertones(intensity, mastertone, availableTones) {
 }
 
 function updateIntensity(intensity) {
-  document.querySelector('.intensity-value').innerHTML = intensity;
+  const intensityValue = document.querySelector('.intensity-value');
+  render(intensity, intensityValue);
 
   if (intensity) {
     addClass('.mastertone', 'active');
@@ -50,7 +51,8 @@ function updateIntensity(intensity) {
 }
 
 function updateMastertone(intensity, mastertone, availableProducts) {
-  document.querySelector('.mastertone-value').innerHTML = mastertone;
+  const mastertoneValue = document.querySelector('.mastertone-value');
+  render(mastertone, mastertoneValue);
 
   if (mastertone) {
     addClass('.undertone', 'active');
@@ -64,7 +66,8 @@ function updateMastertone(intensity, mastertone, availableProducts) {
 }
 
 function updateUndertone(undertone) {
-  document.querySelector('.undertone-value').innerHTML = undertone;
+  const undertoneValue = document.querySelector('.undertone-value');
+  render(undertone, undertoneValue);
 
   if (undertone) {
     addClass('.result', 'active');
@@ -80,10 +83,8 @@ function updateResult(currentState, availableProducts) {
 
   if (intensity && mastertone && undertone) {
     const shortenedResult = `${intensity.substring(0, 2)}${mastertone.substring(0, 1)}${undertone.substring(0, 1)}`;
-
     const mastertoneTranslated = translate(mastertone, translation);
     const undertoneTranslated = translate(undertone, translation);
-
     const product = get(availableProducts, [intensity, mastertone, undertone]);
 
     state.result = shortenedResult;
@@ -92,26 +93,34 @@ function updateResult(currentState, availableProducts) {
     removeClass('.result-container', ['c10', 'c20', 'c30', 'c40', 'c50', 'c60', 'c70', 'c80', 'c90']);
     addClass('.result-container', `c${shortenedResult.substring(0, 2)}`);
 
-    document.querySelector('.result-value').innerHTML = shortenedResult;
-    document.querySelector('.result-code').innerHTML = shortenedResult;
+    const resultValueNode = document.querySelector('.result-value');
+    render(shortenedResult, resultValueNode);
+    const resultCodeNode = document.querySelector('.result-code');
+    render(shortenedResult, resultCodeNode);
 
     document.querySelector('.section-result .before-image').src = product.image_before;
     document.querySelector('.section-result .after-image').src = product.image_after;
 
-    document.querySelector('.translate-intensity').innerHTML = `
-            <strong>${intensity.substring(2)}</strong><br/>
-            <span>Intensywność odcienia</span>`;
-    document.querySelector('.translate-mastertone').innerHTML = `
-            <strong>${mastertone}</strong><br/>
-            <span>${mastertoneTranslated[0]}</span>
-            <span>tonacja</span>`;
-    document.querySelector('.translate-undertone').innerHTML = `
-            <strong>${undertone}</strong><br/>
-            <span>${undertoneTranslated[1]}</span>
-            <span>odcień</span>`;
+    const intensityResult = `<strong>${intensity.substring(2)}</strong><br/>
+      <span>Intensywność odcienia</span>`;
+    const intensityResultNode = document.querySelector('.translate-intensity');
+    render(intensityResult, intensityResultNode);
 
-    document.querySelector('.result-description').innerHTML = `
-            ${intensity.substring(2)} ${mastertoneTranslated[1]} o ${undertoneTranslated[2]} odcieniu`;
+    const mastertoneResult = `<strong>${mastertone}</strong><br/>
+      <span>${mastertoneTranslated[0]}</span>
+      <span>tonacja</span>`;
+    const mastertoneResultNode = document.querySelector('.translate-mastertone');
+    render(mastertoneResult, mastertoneResultNode);
+
+    const undertoneResult = `<strong>${undertone}</strong><br/>
+      <span>${undertoneTranslated[1]}</span>
+      <span>odcień</span>`;
+    const undertoneResultNode = document.querySelector('.translate-undertone');
+    render(undertoneResult, undertoneResultNode);
+
+    const resultDescription = `${intensity.substring(2)} ${mastertoneTranslated[1]} o ${undertoneTranslated[2]} odcieniu`;
+    const descriptionResultNode = document.querySelector('.result-description');
+    render(resultDescription, descriptionResultNode);
   }
 }
 

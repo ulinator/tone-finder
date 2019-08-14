@@ -22,5 +22,10 @@ function removeClass(elements, classNames) {
   nodes.forEach((element) => element.classList.remove(classNames));
 }
 
+function render(template, node) {
+  if (!node) return;
+  node.innerHTML = template;
+}
+
 // eslint-disable-next-line object-curly-newline
-export { get, translate, addClass, removeClass };
+export { get, translate, addClass, removeClass, render };
