@@ -12,4 +12,15 @@ function translate(phrase, translationArray) {
   return translationArray[phrase];
 }
 
-export { get, translate };
+function addClass(elements, classNames) {
+  const nodes = document.querySelectorAll(elements);
+  nodes.forEach((element) => element.classList.add(classNames));
+}
+
+function removeClass(elements, classNames) {
+  const nodes = document.querySelectorAll(elements);
+  nodes.forEach((element) => element.classList.remove(classNames));
+}
+
+// eslint-disable-next-line object-curly-newline
+export { get, translate, addClass, removeClass };

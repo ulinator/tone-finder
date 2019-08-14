@@ -1,6 +1,7 @@
 import products from './products.js';
 import translation from './translation.js';
-import { get, translate } from './utils.js';
+// eslint-disable-next-line object-curly-newline
+import { get, translate, addClass, removeClass } from './utils.js';
 
 const state = {
   selected: {
@@ -13,25 +14,25 @@ const state = {
 };
 
 function activateStep(section) {
-  document.querySelectorAll('[data-step]').forEach((element) => element.classList.remove('active'));
-  document.querySelector(`[data-step="${section}"]`).classList.add('active');
+  removeClass('[data-step]', 'active');
+  addClass(`[data-step="${section}"]`, 'active');
 }
 
 function showUndertones(mastertone) {
   if (mastertone !== '') {
-    document.querySelectorAll('.section-undertone .selectors').forEach((element) => element.classList.remove('visible'));
-    document.querySelector(`.selectors-${mastertone}`).classList.add('visible');
+    removeClass('.section-undertone .selectors', 'visible');
+    addClass(`.selectors-${mastertone}`, 'visible');
   }
 }
 
 function activateAvailableUndertones(intensity, mastertone, availableTones) {
   const availableUndertones = get(availableTones, [intensity, mastertone]).children;
 
-  document.querySelectorAll('[data-undertone]').forEach((element) => element.classList.remove('available'));
+  removeClass('[data-undertone]', 'available');
 
   if (availableUndertones) {
     availableUndertones.forEach((element) => {
-      document.querySelector(`[data-undertone="${element.name}"`).classList.add('available');
+      addClass(`[data-undertone="${element.name}"]`, 'available');
     });
   }
 }
@@ -40,7 +41,7 @@ function updateIntensity(intensity) {
   document.querySelector('.intensity-value').innerHTML = intensity;
 
   if (intensity) {
-    document.querySelector('.mastertone').classList.add('active');
+    addClass('.mastertone', 'active');
 
     setTimeout(() => {
       activateStep('2');
@@ -52,7 +53,7 @@ function updateMastertone(intensity, mastertone, availableProducts) {
   document.querySelector('.mastertone-value').innerHTML = mastertone;
 
   if (mastertone) {
-    document.querySelector('.undertone').classList.add('active');
+    addClass('.undertone', 'active');
     showUndertones(mastertone);
     activateAvailableUndertones(intensity, mastertone, availableProducts);
 
@@ -66,7 +67,7 @@ function updateUndertone(undertone) {
   document.querySelector('.undertone-value').innerHTML = undertone;
 
   if (undertone) {
-    document.querySelector('.result').classList.add('active');
+    addClass('.result', 'active');
 
     setTimeout(() => {
       activateStep('4');
@@ -88,8 +89,8 @@ function updateResult(currentState, availableProducts) {
     state.result = shortenedResult;
 
     // render result
-    document.querySelector('.result-container').classList.remove('c10', 'c20', 'c30', 'c40', 'c50', 'c60', 'c70', 'c80', 'c90');
-    document.querySelector('.result-container').classList.add(`c${shortenedResult.substring(0, 2)}`);
+    removeClass('.result-container', ['c10', 'c20', 'c30', 'c40', 'c50', 'c60', 'c70', 'c80', 'c90']);
+    addClass('.result-container', `c${shortenedResult.substring(0, 2)}`);
 
     document.querySelector('.result-value').innerHTML = shortenedResult;
     document.querySelector('.result-code').innerHTML = shortenedResult;
@@ -143,8 +144,7 @@ function stepBack(stepNumber) {
       element.classList.remove('active');
     }
   });
-
-  document.querySelector(`[data-step-vis="${stepNumber}"]`).classList.add('active');
+  addClass(`[data-step-vis="${stepNumber}"]`, 'active');
 
   // set state step
   state.step = stepNumber;
@@ -154,8 +154,8 @@ function stepBack(stepNumber) {
 
 // app init
 function initializeApp() {
-  document.querySelector('#ff-header').classList.remove('active');
-  document.querySelector('#ff-app').classList.add('active');
+  removeClass('#ff-header', 'active');
+  addClass('#ff-app', 'active');
 }
 
 // start the app button
