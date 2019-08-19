@@ -1,201 +1,142 @@
-import products from './products.js';
-import translation from './translation.js';
+import { products } from './products.js';
 // eslint-disable-next-line object-curly-newline
-import { get, translate, addClass, removeClass, render } from './utils.js';
+import { state, get, addClass, removeClass, renderTemplate } from './utils.js';
+// eslint-disable-next-line object-curly-newline
+import { intensityTemplate, mastertoneTemplate, undertoneTemplate, resultTemplate } from './templates.js';
+import { renderNavigation } from './navigation.js';
 
-const state = {
-  selected: {
-    intensity: '',
-    mastertone: '',
-    undertone: '',
-  },
-  result: '',
-  step: 1,
+// app init
+function initializeApp() {
+  const intensity = document.querySelector('[data-render="intensity"]');
+
+  setTimeout(() => {
+    renderTemplate(intensity, intensityTemplate, products);
+    removeClass('#ff-header', 'active');
+    addClass('#ff-app', 'active');
+  }, 200);
+}
+
+function showCurrentSection(currentState) {
+  const { step } = currentState;
+  const stepNodes = document.querySelectorAll('[data-step]');
+
+  if (step < 2) {
+    state.selected.intensity = '';
+    state.selected.mastertone = '';
+    state.selected.undertone = '';
+    state.result = '';
+  } else if (step < 3) {
+    state.selected.mastertone = '';
+    state.selected.undertone = '';
+    state.result = '';
+  } else if (step < 4) {
+    state.selected.undertone = '';
+    state.result = '';
+  }
+
+  stepNodes.forEach((element) => {
+    element.classList.remove('active');
+  });
+
+  document.querySelector(`[data-step="${step}"]`).classList.add('active');
+}
+
+const elementMap = {
+  intensityNav: document.querySelector('.intensity-value'),
+  intensitySection: document.querySelector('.section-intensity'),
+
+  mastertoneNav: document.querySelector('.mastertone-value'),
+  mastertoneSection: document.querySelector('.section-mastertone'),
+
+  undertoneNav: document.querySelector('.undertone-value'),
+  undertoneSection: document.querySelector('.section-undertone'),
+
+  resultNav: document.querySelector('.result-value'),
+  resultSection: document.querySelector('.section-result'),
 };
 
-function activateStep(section) {
-  removeClass('[data-step]', 'active');
-  addClass(`[data-step="${section}"]`, 'active');
-}
+const startButton = document.querySelector('#ff-start-button');
 
-function showUndertones(mastertone) {
-  if (mastertone !== '') {
-    removeClass('.section-undertone .selectors', 'visible');
-    addClass(`.selectors-${mastertone}`, 'visible');
-  }
-}
+startButton.addEventListener('click', () => initializeApp());
 
-function activateAvailableUndertones(intensity, mastertone, availableTones) {
-  const availableUndertones = get(availableTones, [intensity, mastertone]).children;
+// const navButtons = document.querySelectorAll('[data-step-vis]');
 
-  removeClass('[data-undertone]', 'available');
+// navButtons.forEach((item) => {
+//   item.addEventListener('click', () => {
+//     const clickedStep = parseInt(item.dataset.stepVis);
+//     console.log('clicking on step: ', clickedStep);
 
-  if (availableUndertones) {
-    availableUndertones.forEach((element) => {
-      addClass(`[data-undertone="${element.name}"]`, 'available');
-    });
-  }
-}
+//     state.step = clickedStep;
+//     console.log(state.step);
+//     updateView(state, products);
+//   });
+// });
 
-function updateIntensity(intensity) {
-  const intensityValue = document.querySelector('.intensity-value');
-  render(intensity, intensityValue);
+function updateIntensity(currentState, availableProducts) {
+  const { intensity } = currentState.selected;
 
   if (intensity) {
-    addClass('.mastertone', 'active');
-
-    setTimeout(() => {
-      activateStep('2');
-    }, 200);
+    // addClass('.intensity-value', 'active');
+    const mastertoneData = get(availableProducts, [intensity]).children;
+    const mastertoneNode = document.querySelector('[data-render="mastertone"]');
+    state.step = 2;
+    renderTemplate(mastertoneNode, mastertoneTemplate, mastertoneData);
   }
 }
 
-function updateMastertone(intensity, mastertone, availableProducts) {
-  const mastertoneValue = document.querySelector('.mastertone-value');
-  render(mastertone, mastertoneValue);
+function updateMastertone(currentState, availableProducts) {
+  const { intensity, mastertone } = currentState.selected;
 
   if (mastertone) {
-    addClass('.undertone', 'active');
-    showUndertones(mastertone);
-    activateAvailableUndertones(intensity, mastertone, availableProducts);
-
-    setTimeout(() => {
-      activateStep('3');
-    }, 200);
+    // addClass('.undertone', 'active');
+    const undertoneNode = document.querySelector('[data-render="undertone"]');
+    const undertoneData = get(availableProducts, [intensity, mastertone]).children;
+    state.step = 3;
+    renderTemplate(undertoneNode, undertoneTemplate, undertoneData);
   }
 }
 
-function updateUndertone(undertone) {
-  const undertoneValue = document.querySelector('.undertone-value');
-  render(undertone, undertoneValue);
+function setResult(currentState) {
+  const { intensity, mastertone, undertone } = currentState.selected;
+  const intensityNumber = intensity.substring(0, 2);
+  const mastertoneFirstLetter = mastertone.substring(0, 1);
+  const undertoneFirstLetter = undertone.substring(0, 1);
 
-  if (undertone) {
-    addClass('.result', 'active');
-
-    setTimeout(() => {
-      activateStep('4');
-    }, 200);
-  }
+  state.step = 4;
+  state.result = `${intensityNumber}${mastertoneFirstLetter}${undertoneFirstLetter}`;
 }
 
-function updateResult(currentState, availableProducts) {
+function updateUndertone(currentState, availableProducts) {
   const { intensity, mastertone, undertone } = currentState.selected;
 
-  if (intensity && mastertone && undertone) {
-    const shortenedResult = `${intensity.substring(0, 2)}${mastertone.substring(0, 1)}${undertone.substring(0, 1)}`;
-    const mastertoneTranslated = translate(mastertone, translation);
-    const undertoneTranslated = translate(undertone, translation);
-    const product = get(availableProducts, [intensity, mastertone, undertone]);
-
-    state.result = shortenedResult;
-
-    // render result
-    removeClass('.result-container', ['c10', 'c20', 'c30', 'c40', 'c50', 'c60', 'c70', 'c80', 'c90']);
-    addClass('.result-container', `c${shortenedResult.substring(0, 2)}`);
-
-    const resultValueNode = document.querySelector('.result-value');
-    render(shortenedResult, resultValueNode);
-    const resultCodeNode = document.querySelector('.result-code');
-    render(shortenedResult, resultCodeNode);
-
-    document.querySelector('.section-result .before-image').src = product.image_before;
-    document.querySelector('.section-result .after-image').src = product.image_after;
-
-    const intensityResult = `<strong>${intensity.substring(2)}</strong><br/>
-      <span>Intensywność odcienia</span>`;
-    const intensityResultNode = document.querySelector('.translate-intensity');
-    render(intensityResult, intensityResultNode);
-
-    const mastertoneResult = `<strong>${mastertone}</strong><br/>
-      <span>${mastertoneTranslated[0]}</span>
-      <span>tonacja</span>`;
-    const mastertoneResultNode = document.querySelector('.translate-mastertone');
-    render(mastertoneResult, mastertoneResultNode);
-
-    const undertoneResult = `<strong>${undertone}</strong><br/>
-      <span>${undertoneTranslated[1]}</span>
-      <span>odcień</span>`;
-    const undertoneResultNode = document.querySelector('.translate-undertone');
-    render(undertoneResult, undertoneResultNode);
-
-    const resultDescription = `${intensity.substring(2)} ${mastertoneTranslated[1]} o ${undertoneTranslated[2]} odcieniu`;
-    const descriptionResultNode = document.querySelector('.result-description');
-    render(resultDescription, descriptionResultNode);
+  if (undertone) {
+    // addClass('.result', 'active');
+    const resultNode = document.querySelector('[data-render="result"]');
+    const resultData = get(availableProducts, [intensity, mastertone, undertone]);
+    setResult(currentState);
+    renderTemplate(resultNode, resultTemplate, resultData, state);
   }
 }
 
 function updateView(currentState, availableProducts) {
-  const { intensity, mastertone, undertone } = currentState.selected;
-  updateIntensity(intensity);
-  updateMastertone(intensity, mastertone, availableProducts);
-  updateUndertone(undertone);
-  updateResult(currentState, availableProducts);
+  updateIntensity(currentState, availableProducts);
+  updateMastertone(currentState, availableProducts);
+  updateUndertone(currentState, availableProducts);
+
+  renderNavigation(currentState, elementMap);
+  showCurrentSection(currentState);
 }
 
-function stepBack(stepNumber) {
-  // override state
-  if (stepNumber < 2) {
-    state.selected.mastertone = '';
-    state.selected.undertone = '';
-    state.result = '';
-  } else if (stepNumber < 3) {
-    state.selected.undertone = '';
-    state.result = '';
-  } else if (stepNumber < 4) {
-    state.result = '';
-  }
+const app = document.querySelector('.foundation-finder-app');
 
-  const navButtons = document.querySelectorAll('[data-step-vis]');
-
-  // update classes for navigation buttons
-  navButtons.forEach((element) => {
-    if (element.dataset.stepVis > stepNumber) {
-      element.classList.remove('active');
-    }
-  });
-  addClass(`[data-step-vis="${stepNumber}"]`, 'active');
-
-  // set state step
-  state.step = stepNumber;
-
-  activateStep(stepNumber);
-}
-
-// app init
-function initializeApp() {
-  removeClass('#ff-header', 'active');
-  addClass('#ff-app', 'active');
-}
-
-// start the app button
-const startButton = document.querySelector('#ff-start-button');
-
-startButton.addEventListener('click', () => {
-  setTimeout(() => {
-    initializeApp();
-  }, 200);
-});
-
-// buttons setting state
-const selectorButtons = document.querySelectorAll('.data-selector');
-
-selectorButtons.forEach((item) => {
-  item.addEventListener('click', () => {
+// event delegation
+app.addEventListener('click', (event) => {
+  if (event.target && event.target.closest('div.data-selector')) {
+    const item = event.target.closest('div.data-selector');
     const key = Object.keys(item.dataset)[0]; // get data-key
     const value = Object.values(item.dataset)[0]; // get data-key="value"
-
     state.selected[key] = value;
+
     updateView(state, products);
-  });
-});
-
-// navigation buttons
-const navButtons = document.querySelectorAll('[data-step-vis]');
-
-navButtons.forEach((item) => {
-  item.addEventListener('click', () => {
-    const step = item.dataset.stepVis;
-    state.step = step;
-    stepBack(step);
-  });
+  }
 });

@@ -5,15 +5,16 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Urban Decay Foundation</title>
+  <title>Urban Decay Foundation Finder</title>
 
   <link href="css/styles.css" rel="stylesheet" type="text/css" />
-
 </head>
 
 <body>
 
   <section id="foundation-finder" class="foundation-finder">
+
+    <div id="test"></div>
 
     <header id="ff-header" class="header active">
       <img class="image" src="./img/urban-decay-banner.jpg" alt="Urban Decay. Pretty Different." />
@@ -64,103 +65,8 @@
         <h2 class="title">Wybierz ekipę</h2>
         <p class="paragraph">Kto ma odcień skóry najbliższy Twojemu?</p>
 
-        <ul class="selectors">
-          <li class="item">
-            <div class="data-selector" data-intensity="10 Very Fair">
-              <img class="image face-image" src="./img/faces/10CP-after.jpg" alt="" />
+        <ul class="selectors" data-render="intensity">
 
-              <img class="image face-image-swap" src="./img/swatches/swatch10.jpg" alt="" />
-
-              <p class="description">
-                <strong class="color-code">10</strong>
-                <span class="color-name">Very Fair</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="20 Fair">
-              <img class="image face-image" src="./img/faces/20NN-after.jpg" alt="" />
-
-              <img class="image face-image-swap" src="./img/swatches/swatch20.jpg" alt="" />
-
-
-              <p class="description">
-                <strong class="color-code">20</strong>
-                <span class="color-name">Fair</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="30 Light">
-              <img class="image face-image" src="./img/faces/30NN-after.jpg" alt="" />
-              <img class="image face-image-swap" src="./img/swatches/swatch30.jpg" alt="" />
-
-
-              <p class="description">
-                <strong class="color-code">30</strong>
-                <span class="color-name">Light</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="40 Light-Medium">
-              <img class="image face-image" src="./img/faces/40CP-after.jpg" alt="" />
-              <img class="image face-image-swap" src="./img/swatches/swatch40.jpg" alt="" />
-
-              <p class="description">
-                <strong class="color-code">40</strong>
-                <span class="color-name">Light-Medium</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="50 Medium">
-              <img class="image face-image" src="./img/faces/50CP-after.jpg" alt=""/>
-              <img class="image face-image-swap" src="./img/swatches/swatch50.jpg" alt="" />
-
-
-              <p class="description">
-                <strong class="color-code">50</strong>
-                <span class="color-name">Medium</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="60 Medium-Dark">
-              <img class="image face-image" src="./img/faces/60NN-after.jpg" alt="" />
-              <img class="image face-image-swap" src="./img/swatches/swatch60.jpg" alt="" />
-
-              <p class="description">
-                <strong class="color-code">60</strong>
-                <span class="color-name">Medium-Dark</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="70 Dark">
-              <img class="image face-image" src="./img/faces/70WY-after.jpg" alt="" />
-              <img class="image face-image-swap" src="./img/swatches/swatch70.jpg" alt="" />
-
-              <p class="description">
-                <strong class="color-code">70</strong>
-                <span class="color-name">Dark</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="80 Deep">
-              <img class="image face-image" src="./img/faces/80WY-after.jpg" alt="" />
-              <img class="image face-image-swap" src="./img/swatches/swatch80.jpg" alt="" />
-
-              <p class="description">
-                <strong class="color-code">80</strong>
-                <span class="color-name">Deep</span></p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector" data-intensity="90 Ultra Deep">
-              <img class="image face-image" src="./img/faces/92NN-after.jpg" alt="" />
-              <img class="image face-image-swap" src="./img/swatches/swatch90.jpg" alt="" />
-
-
-              <p class="description">
-                <strong class="color-code">90</strong>
-                <span class="color-name">Ultra Deep</span></p>
-            </div>
-          </li>
         </ul>
       </section>
 
@@ -173,40 +79,8 @@
         <h2 class="title">Wybierz tonację</h2>
         <p class="paragraph">Opowiedz nam o swojej skórze</p>
 
-        <ul class="selectors">
-          <li class="item">
-            <div class="data-selector" data-mastertone="cool">
-              <img class="image face-image face-image-cool" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/20CP-after.jpg" alt="" />
-              <p class="description subtitle">Chłodna</p>
-            </div>
+        <ul class="selectors" data-render="mastertone">
 
-            <p class="description subtext">Zazwyczaj opalam się na czerwono</p>
-            <p class="description subtext">Niebieskie/fioletowe żyły pod skórą</p>
-
-          </li>
-          <li class="item">
-            <div class="data-selector" data-mastertone="neutral">
-              <img class="image face-image face-image-neutral" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/80NN-after.jpg" alt="" />
-
-              <p class="description subtitle">Neutralna</p>
-            </div>
-            <p class="description subtext">Opalam się na brązowo, ale gdy jestem na słońcu za długo - na czerwono</p>
-            <p class="description subtext">Niebieskie/zielone żyły pod skórą</p>
-
-          </li>
-          <li class="item">
-            <div class="data-selector" data-mastertone="warm">
-              <img class="image face-image face-image-warm" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/50WO-after.jpg" alt="" />
-
-              <p class="description subtitle">Ciepła</p>
-            </div>
-            <p class="description subtext">Zawsze opalam się na brązowo</p>
-            <p class="description subtext">Zielone/oliwkowe żyły pod skórą</p>
-
-          </li>
         </ul>
       </section>
 
@@ -222,113 +96,17 @@
         <p class="paragraph">Pójdźmy krok dalej.</p>
 
 
-        <ul class="selectors selectors-undertone selectors-cool">
-          <li class="item">
-            <div class="data-selector selector-cool" data-undertone="pink">
+        <ul class="selectors selectors-undertone" data-render="undertone">
 
-              <img class="image face-image face-image-pink" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/20PINK.jpg" alt="" />
-
-              <p class="description subtitle">Różowy</p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector selector-cool" data-undertone="blue">
-
-              <img class="image face-image face-image-blue" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/90CB-after.jpg" alt="" />
-
-              <p class="description subtitle">Niebieski</p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector selector-cool" data-undertone="green">
-
-              <img class="image face-image face-image-green" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/60CG-after.jpg" alt="" />
-
-              <p class="description subtitle">Oliwkowy</p>
-            </div>
-          </li>
         </ul>
 
-        <ul class="selectors selectors-undertone selectors-neutral">
-          <li class="item">
-            <div class="data-selector selector-neutral " data-undertone="neutral">
-
-              <img class="image face-image face-image-neutral" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/31NN-after.jpg" alt="" />
-
-              <p class="description subtitle">Neutralny</p>
-            </div>
-          </li>
-        </ul>
-
-        <ul class="selectors selectors-undertone selectors-warm">
-          <li class="item">
-            <div class="data-selector selector-warm" data-undertone="yellow">
-              <img class="image face-image face-image-yellow" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/60WY-after.jpg" alt="" />
-
-              <p class="description subtitle">Złoty</p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector selector-warm" data-undertone="orange">
-
-              <img class="image face-image face-image-orange" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/40WO-after.jpg" alt="" />
-
-              <p class="description subtitle">Brzosk-<br/>winiowy</p>
-            </div>
-          </li>
-          <li class="item">
-            <div class="data-selector selector-warm" data-undertone="red">
-
-              <img class="image face-image face-image-red" src="./img/spacer.png" alt="" />
-              <img class="image face-image-swap" src="./img/faces/91WR-after.jpg" alt="" />
-
-              <p class="description subtitle">Czerwony</p>
-            </div>
-          </li>
-        </ul>
       </section>
 
       <section class="selectors-section section-result" data-step="4">
         <h2 class="title">Twoja naga prawda to</h2>
 
-        <ul class="selectors">
-          <li class="item">
-            <img class="image before-image" src="" alt="" />
-          </li>
+        <ul class="selectors" data-render="result">
 
-          <li class="item">
-            <div class="result-container">
-
-              <div class="result-row align-right">
-                <p class="result-translation translate-mastertone">
-
-                </p>
-                <p class="result-translation translate-undertone">
-
-                </p>
-              </div>
-
-              <div class="result-row">
-                <p class="result-code"></p>
-              </div>
-
-              <div class="result-row align-left">
-                <p class="result-translation translate-intensity"></p>
-              </div>
-
-              <p class="result-description"></p>
-            </div>
-          </li>
-
-          <li class="item">
-            <img class="image after-image" src="" alt="" />
-          </li>
         </ul>
 
         <a href="javascript:void(0);" class="product-button buy-all">Kup teraz</a>

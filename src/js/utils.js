@@ -1,3 +1,13 @@
+const state = {
+  selected: {
+    intensity: '',
+    mastertone: '',
+    undertone: '',
+  },
+  result: '',
+  step: 1,
+};
+
 function get(data, keys) {
   const key = keys.shift();
   const target = data.find((el) => el.name === key);
@@ -7,10 +17,6 @@ function get(data, keys) {
   return target;
 }
 // const res = get(products, ["10 Very Fair", "cool"])
-
-function translate(phrase, translationArray) {
-  return translationArray[phrase];
-}
 
 function addClass(elements, classNames) {
   const nodes = document.querySelectorAll(elements);
@@ -27,5 +33,19 @@ function render(template, node) {
   node.innerHTML = template;
 }
 
+function renderTemplate(node, template, data, currentState) {
+  let newTemplate = '';
+  if (Array.isArray(data)) {
+    data.map((element) => {
+      newTemplate += template(element);
+    });
+  } else {
+    newTemplate = template(data, currentState);
+  }
+
+  render(newTemplate, node);
+}
+
+
 // eslint-disable-next-line object-curly-newline
-export { get, translate, addClass, removeClass, render };
+export { state, get, addClass, removeClass, render, renderTemplate };

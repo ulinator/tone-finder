@@ -10,4 +10,8 @@ const translation = {
   red: ['czerwona', 'czerwony', 'czerwonym'],
 };
 
-export default translation;
+function translate(phrase, translationArray) {
+  return translationArray[phrase];
+}
+
+export { translation, translate };
