@@ -15,8 +15,7 @@ const navigationMap = {
 function renderNavigation(currentState, elements = navigationMap) {
   const { intensity, mastertone, undertone } = currentState.selected;
   const { result } = currentState;
-  const { intensityValue, mastertoneValue,
-    undertoneValue, resultValue } = elements;
+  const { intensityValue, mastertoneValue, undertoneValue, resultValue } = elements;
 
   Object.values(elements).forEach((element) => {
     element.classList.remove('active');
