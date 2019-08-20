@@ -61,7 +61,7 @@ function resultTemplate(data, state) {
     </li>
 
     <li class="item">
-      <div class="result-container c${state.result.substring(0,2)}" >
+      <div class="result-container c${state.result.substring(0, 2)}" >
 
         <div class="result-row align-right">
           <p class="result-translation translate-mastertone">

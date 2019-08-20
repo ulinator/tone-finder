@@ -1,13 +1,3 @@
-const state = {
-  selected: {
-    intensity: '',
-    mastertone: '',
-    undertone: '',
-  },
-  result: '',
-  step: 1,
-};
-
 function get(data, keys) {
   const key = keys.shift();
   const target = data.find((el) => el.name === key);
@@ -46,6 +36,5 @@ function renderTemplate(node, template, data, currentState) {
   render(newTemplate, node);
 }
 
-
 // eslint-disable-next-line object-curly-newline
-export { state, get, addClass, removeClass, render, renderTemplate };
+export { get, addClass, removeClass, render, renderTemplate };

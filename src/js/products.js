@@ -406,11 +406,11 @@ const products = [
         ref: productsMastertones.cool,
         children: [
           {
-            name: 'blue',
-            image: './img/faces/90CB-after.jpg',
+            name: 'green',
+            image: './img/faces/60CG-after.jpg',
             image_switch: './img/spacer.png',
-            image_before: './img/faces/80CB-before.jpg',
-            image_after: './img/faces/80CB-after.jpg',
+            image_before: './img/faces/80CG-before.jpg',
+            image_after: './img/faces/80CG-after.jpg',
           },
         ],
       },

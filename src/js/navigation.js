@@ -1,36 +1,50 @@
+/* eslint-disable object-curly-newline */
 import { addClass } from './utils.js';
 
-function renderNavigation(currentState, elements) {
+const navigationMap = {
+  intensityNav: document.querySelector('.intensity'),
+  intensityValue: document.querySelector('.intensity-value'),
+  mastertoneNav: document.querySelector('.mastertone'),
+  mastertoneValue: document.querySelector('.mastertone-value'),
+  undertoneNav: document.querySelector('.undertone'),
+  undertoneValue: document.querySelector('.undertone-value'),
+  resultNav: document.querySelector('.result'),
+  resultValue: document.querySelector('.result-value'),
+};
+
+function renderNavigation(currentState, elements = navigationMap) {
   const { intensity, mastertone, undertone } = currentState.selected;
   const { result } = currentState;
-  // eslint-disable-next-line object-curly-newline
-  const { intensityNav, mastertoneNav, undertoneNav, resultNav } = elements;
+  const { intensityNav, intensityValue, mastertoneNav, mastertoneValue,
+    undertoneNav, undertoneValue, resultNav, resultValue } = elements;
 
-  [intensityNav, mastertoneNav, undertoneNav, resultNav].forEach((element) => {
-    element.classList.remove('active');
-  });
+  [intensityNav, intensityValue, mastertoneNav, mastertoneValue,
+    undertoneNav, undertoneValue, resultNav, resultValue]
+    .forEach((element) => {
+      element.classList.remove('active');
+    });
 
   addClass('.intensity', 'active');
-  intensityNav.innerHTML = intensity;
+  intensityValue.innerHTML = intensity;
 
   if (intensity !== '') {
     addClass('.intensity-value', 'active');
     addClass('.mastertone', 'active');
   }
 
-  mastertoneNav.innerHTML = mastertone;
+  mastertoneValue.innerHTML = mastertone;
   if (mastertone !== '') {
     addClass('.mastertone-value', 'active');
     addClass('.undertone', 'active');
   }
 
-  undertoneNav.innerHTML = undertone;
+  undertoneValue.innerHTML = undertone;
   if (undertone !== '') {
     addClass('.undertone-value', 'active');
     addClass('.result', 'active');
   }
 
-  resultNav.innerHTML = result;
+  resultValue.innerHTML = result;
   if (result !== '') {
     addClass('.result-value', 'active');
   }
