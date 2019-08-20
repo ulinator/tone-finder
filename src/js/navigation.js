@@ -15,14 +15,12 @@ const navigationMap = {
 function renderNavigation(currentState, elements = navigationMap) {
   const { intensity, mastertone, undertone } = currentState.selected;
   const { result } = currentState;
-  const { intensityNav, intensityValue, mastertoneNav, mastertoneValue,
-    undertoneNav, undertoneValue, resultNav, resultValue } = elements;
+  const { intensityValue, mastertoneValue,
+    undertoneValue, resultValue } = elements;
 
-  [intensityNav, intensityValue, mastertoneNav, mastertoneValue,
-    undertoneNav, undertoneValue, resultNav, resultValue]
-    .forEach((element) => {
-      element.classList.remove('active');
-    });
+  Object.values(elements).forEach((element) => {
+    element.classList.remove('active');
+  });
 
   addClass('.intensity', 'active');
   intensityValue.innerHTML = intensity;
