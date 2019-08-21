@@ -12,7 +12,7 @@ npm install
 cd src
 ```
 ```
-serve
+npx serve
 ```
 
 ## Built With
