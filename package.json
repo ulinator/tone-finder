@@ -7,5 +7,14 @@
     "eslint-plugin-react": "^7.14.3",
     "eslint-plugin-react-hooks": "^1.7.0",
     "serve": "^11.1.0"
-  }
+  },
+  "dependencies": {
+    "parcel": "^1.12.4"
+  },
+  "name": "tone-finder",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/ulinator/tone-finder.git",
+  "author": "Ulinator <zahuta@gmail.com>",
+  "license": "MIT"
 }
