@@ -11,7 +11,9 @@
   "dependencies": {
     "parcel": "^1.12.4"
   },
-  "name": "tone-finder",
+  "scripts": {
+    "build": "parcel src/index.html public"
+  },
   "version": "1.0.0",
   "main": "index.js",
   "repository": "https://github.com/ulinator/tone-finder.git",
